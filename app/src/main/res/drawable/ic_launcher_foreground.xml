@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!--
+        Munipulse Launcher Icon Foreground
+        Stylized 'M' with pulse/heartbeat line
+    -->
+    <path
+        android:fillColor="#00A0B1"
+        android:pathData="M25,30 L25,78 L34,78 L34,65 L46,78 L54,70 L62,78 L74,65 L74,78 L83,78 L83,30 L74,30 L54,55 L34,30 Z M27,76 L27,33 L34,33 L54,58 L74,33 L81,33 L81,76 L74,76 L74,62 L62,75 L54,67 L46,75 L34,62 L34,76 Z" />
+    <path
+        android:fillColor="#00A0B1"
+        android:pathData="M27,65 L36,74 L46,64 L54,72 L62,64 L72,74 L81,65 L81,62 L72,71 L62,61 L54,69 L46,61 L36,71 L27,62 Z" />
+</vector>

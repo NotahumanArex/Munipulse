@@ -1,0 +1,15 @@
+<!-- res/drawable/bg_icon_button_round.xml -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#20000000"> <!-- Subtle dark ripple for light background -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#F1F5F9" /> <!-- Light slate/gray background -->
+            <stroke
+                android:width="1dp"
+                android:color="#E2E8F0" /> <!-- Subtle border -->
+            <size
+                android:width="40dp"
+                android:height="40dp" />
+        </shape>
+    </item>
+</ripple>

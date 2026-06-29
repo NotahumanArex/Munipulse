@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    layout_loading.xml
+    ──────────────────
+    Reusable loading indicator layout
+    Used in:
+    • Loading data from API
+    • Form submission
+    • Image upload
+    
+    Show with:
+    loadingLayout.visibility = View.VISIBLE
+    
+    Hide with:
+    loadingLayout.visibility = View.GONE
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <!-- Circular progress indicator -->
+        <ProgressBar
+            android:id="@+id/progress_loading"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_circular"
+            style="?android:attr/progressBarStyleLarge" />
+
+        <!-- Loading text -->
+        <TextView
+            android:id="@+id/tv_loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading..."
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</FrameLayout>

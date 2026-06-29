@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    nav_graph.xml
+    ─────────────
+    Jetpack Navigation graph for MuniPulse.
+
+    Auth (LoginActivity, SignupActivity) lives OUTSIDE this graph.
+    MainActivity starts this graph. LoginActivity calls
+    startActivity(MainActivity) and finish() on successful login.
+
+    Flow:
+      FeedFragment (start)
+        ├── PostDetailFragment ──► ReportDialogFragment
+        ├── NotificationsFragment
+        └── CreatePostActivity (separate Activity)
+      MessagesFragment ──► ThreadDetailFragment
+      ExploreFragment  ──► PostDetailFragment
+      ProfileFragment  ──► EditProfileFragment
+      AdminPanelFragment (deep-link, role-gated)
+-->
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/feedFragment">
+
+    <!-- ════════════════════════════════════════════
+         BOTTOM NAV — TAB 1: FEED
+         ════════════════════════════════════════════ -->
+
+    <fragment
+        android:id="@+id/feedFragment"
+
+        android:label="Feed"
+        tools:layout="@layout/fragment_feed">
+
+        <!-- Feed → Create Post (FAB tap) -->
+        <action
+            android:id="@+id/action_feed_to_createPost"
+            app:destination="@id/createPostActivity" />
+
+        <!-- Feed → Post Detail (card tap) -->
+        <action
+            android:id="@+id/action_feed_to_postDetail"
+            app:destination="@id/postDetailFragment">
+            <argument
+                android:name="postId"
+                app:argType="string" />
+        </action>
+
+        <!-- Feed → Notifications (bell icon) -->
+        <action
+            android:id="@+id/action_feed_to_notifications"
+            app:destination="@id/notificationsFragment" />
+
+        <!-- Deep-link into the feed directly -->
+        <deepLink
+            android:id="@+id/deepLink_feed"
+            app:uri="munipulse://feed" />
+    </fragment>
+
+    <!-- Post Detail (reached from Feed or Profile grid) -->
+    <fragment
+        android:id="@+id/postDetailFragment"
+
+        android:label="Post Detail">
+
+        <argument
+            android:name="postId"
+            app:argType="string" />
+
+        <!-- Post Detail → Report dialog (flag button) -->
+        <action
+            android:id="@+id/action_postDetail_to_report"
+            app:destination="@id/reportDialogFragment" />
+    </fragment>
+
+    <!-- Report / Flag dialog (modal bottom-sheet style) -->
+    <dialog
+        android:id="@+id/reportDialogFragment"
+
+        android:label="Report Post" />
+
+    <!-- Notifications screen (bell icon in Feed toolbar) -->
+    <fragment
+        android:id="@+id/notificationsFragment"
+
+        android:label="Notifications" />
+
+    <!-- Create Post — separate Activity (launched via action) -->
+    <activity
+        android:id="@+id/createPostActivity"
+
+        android:label="New Report"
+        tools:layout="@layout/activity_create_post" />
+
+    <!-- ════════════════════════════════════════════
+         BOTTOM NAV — TAB 2: MESSAGES
+         ════════════════════════════════════════════ -->
+
+    <fragment
+        android:id="@+id/messagesFragment"
+
+        android:label="Messages"
+        tools:layout="@layout/fragment_messages">
+
+        <!-- Messages → Thread Detail (thread item tap) -->
+        <action
+            android:id="@+id/action_messages_to_threadDetail"
+            app:destination="@id/threadDetailFragment">
+            <argument
+                android:name="threadId"
+                app:argType="string" />
+            <argument
+                android:name="threadTitle"
+                app:argType="string"
+                android:defaultValue="" />
+        </action>
+    </fragment>
+
+    <!-- Individual message thread -->
+    <fragment
+        android:id="@+id/threadDetailFragment"
+
+        android:label="Thread"
+        tools:layout="@layout/item_thread">
+
+        <argument
+            android:name="threadId"
+            app:argType="string" />
+        <argument
+            android:name="threadTitle"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+
+    <!-- ════════════════════════════════════════════
+         BOTTOM NAV — TAB 3: EXPLORE
+         ════════════════════════════════════════════ -->
+
+    <fragment
+        android:id="@+id/exploreFragment"
+
+        android:label="Explore">
+
+        <!-- Explore → Post Detail (search result or map pin tap) -->
+        <action
+            android:id="@+id/action_explore_to_postDetail"
+            app:destination="@id/postDetailFragment">
+            <argument
+                android:name="postId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <!-- ════════════════════════════════════════════
+         BOTTOM NAV — TAB 4: PROFILE
+         ════════════════════════════════════════════ -->
+
+    <fragment
+        android:id="@+id/profileFragment"
+
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+
+        <!-- Profile → Edit Profile (pencil / Edit Profile button) -->
+        <action
+            android:id="@+id/action_profile_to_editProfile"
+            app:destination="@id/editProfileFragment" />
+
+        <!-- Profile → Post Detail (thumbnail grid tap) -->
+        <action
+            android:id="@+id/action_profile_to_postDetail"
+            app:destination="@id/postDetailFragment">
+            <argument
+                android:name="postId"
+                app:argType="string" />
+        </action>
+
+        <!--
+            Logout: handled in code — clear session then call:
+            startActivity(Intent(context, LoginActivity::class.java))
+            requireActivity().finish()
+        -->
+
+        <!-- Deep-link to a specific user's profile -->
+        <deepLink
+            android:id="@+id/deepLink_profile"
+            app:uri="munipulse://profile/{userId}" />
+
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="@null"
+            app:nullable="true" />
+    </fragment>
+
+    <!-- Edit Profile -->
+    <fragment
+        android:id="@+id/editProfileFragment"
+
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile">
+
+        <!-- Edit Profile → Profile (save / back) -->
+        <action
+            android:id="@+id/action_editProfile_to_profile"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- ════════════════════════════════════════════
+         ADMIN PANEL  (role-gated — ADMIN / GOV only)
+         ════════════════════════════════════════════ -->
+
+    <fragment
+        android:id="@+id/adminPanelFragment"
+
+        android:label="Admin Panel"
+        tools:layout="@layout/fragment_admin_panel">
+
+        <!-- Admin → Post Detail (report card tap) -->
+        <action
+            android:id="@+id/action_admin_to_postDetail"
+            app:destination="@id/postDetailFragment">
+            <argument
+                android:name="postId"
+                app:argType="string" />
+        </action>
+
+        <deepLink
+            android:id="@+id/deepLink_admin"
+            app:uri="munipulse://admin" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_save_post"
+        android:icon="@drawable/ic_bookmark_border"
+        android:title="@string/menu_save_post"
+        android:orderInCategory="10" />
+
+    <item
+        android:id="@+id/action_follow_issue"
+        android:icon="@drawable/ic_notifications_none"
+        android:title="@string/menu_follow_issue"
+        android:orderInCategory="20" />
+
+    <item
+        android:id="@+id/action_share_post"
+        android:icon="@drawable/ic_share"
+        android:title="@string/menu_share"
+        android:orderInCategory="30" />
+
+    <item
+        android:id="@+id/action_report_post"
+        android:icon="@drawable/ic_flag"
+        android:title="@string/menu_report_post"
+        android:orderInCategory="40" />
+
+    <item
+        android:id="@+id/action_edit_post"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/menu_edit_post"
+        android:orderInCategory="50"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/action_delete_post"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/menu_delete_post"
+        android:orderInCategory="60"
+        android:visible="false" />
+
+</menu>

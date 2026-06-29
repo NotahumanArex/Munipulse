@@ -1,0 +1,12 @@
+<!-- res/drawable/bg_send_button.xml -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#40FFFFFF"> <!-- White ripple effect -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#1560BD" /> <!-- Primary Blue -->
+            <size
+                android:width="48dp"
+                android:height="48dp" />
+        </shape>
+    </item>
+</ripple>

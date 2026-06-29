@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_create_post.xml
+    ────────────────────────
+    Screen — Create New Issue Report
+    Triggered from FAB in feed or bottom sheet.
+    ┌──────────────────────────────────┐
+    │  Toolbar: "Report an Issue"  ✕  │
+    │─────────────────────────────────│
+    │  [NestedScrollView]              │
+    │    Category chips (horizontal)  │
+    │    Issue title input            │
+    │    Description input            │
+    │    Photo picker / Camera button │
+    │    Location picker              │
+    │    Submit button                │
+    └──────────────────────────────────┘
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_page">
+
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mp_blue"
+        android:elevation="4dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_create_post"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/mp_blue"
+            app:title="@string/create_post_title"
+            app:titleTextColor="@android:color/white"
+            app:navigationIcon="@drawable/ic_close"
+            app:navigationIconTint="@android:color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- ── Category selection ── -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:chipSpacingHorizontal="6dp"
+                android:layout_marginBottom="20dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_road"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="🛣️ Road"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/bg_card"
+                    app:chipStrokeColor="@color/border"
+                    app:chipStrokeWidth="1dp"
+                    android:checkable="true"
+                    app:checkedIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_water"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="💧 Water"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/bg_card"
+                    app:chipStrokeColor="@color/border"
+                    app:chipStrokeWidth="1dp"
+                  android:checkable="true"
+                    app:checkedIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="💡 Lights"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/bg_card"
+                    app:chipStrokeColor="@color/border"
+                    app:chipStrokeWidth="1dp"
+                     android:checkable="true"
+                    app:checkedIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_garbage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="🗑️ Garbage"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/bg_card"
+                    app:chipStrokeColor="@color/border"
+                    app:chipStrokeWidth="1dp"
+                    android:checkable="true"
+                    app:checkedIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="❓ Other"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/bg_card"
+                    app:chipStrokeColor="@color/border"
+                    app:chipStrokeWidth="1dp"
+                    android:checkable="true"
+                    app:checkedIconVisible="true" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- ── Issue title input ── -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_issue_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:hint="@string/issue_title_hint"
+                style="@style/MuniPulse.TextInput"
+                app:counterEnabled="true"
+                app:counterMaxLength="100">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_issue_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="100"
+                    android:inputType="text"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ── Issue description input ── -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_issue_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:hint="@string/issue_desc_hint"
+                style="@style/MuniPulse.TextInput"
+                app:counterEnabled="true"
+                app:counterMaxLength="500">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_issue_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="500"
+                    android:minLines="4"
+                    android:maxLines="6"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:textSize="13sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ── Photo section ── -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Photos"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Selected photo preview (shows if photo selected) -->
+            <ImageView
+                android:id="@+id/iv_preview_photo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:background="@color/bg_page"
+                android:contentDescription="Photo preview"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"
+                tools:visibility="visible"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <!-- Photo action buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:layout_marginBottom="20dp">
+
+                <Button
+                    android:id="@+id/btn_camera"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="📷 Camera"
+                    android:textSize="12sp"
+                    style="@style/MuniPulse.Button.Primary" />
+
+                <Button
+                    android:id="@+id/btn_gallery"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="🖼️ Gallery"
+                    android:textSize="12sp"
+                    style="@style/MuniPulse.Button.Outline" />
+
+            </LinearLayout>
+
+            <!-- ── Location section ── -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Location display card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_location"
+                            app:tint="@color/mp_blue"
+                            android:contentDescription="Location"
+                            android:layout_marginEnd="10dp" />
+
+                        <TextView
+                            android:id="@+id/tv_current_location"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            tools:text="📍 Kothrud, Pune" />
+
+                        <Button
+                            android:id="@+id/btn_change_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:text="Change"
+                            android:textSize="11sp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            style="@style/MuniPulse.Button.Outline" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp"
+                        android:text="Your location will help authorities respond faster" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Terms disclaimer ── -->
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkbox_terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I confirm this report is accurate and not spam"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="16dp" />
+
+            <!-- ── Submit button ── -->
+            <Button
+                android:id="@+id/btn_submit_report"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="@string/btn_submit"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                style="@style/MuniPulse.Button.Primary"
+                android:layout_marginBottom="20dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

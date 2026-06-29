@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_map_work_location.xml
+    Shows a folded map with a construction/work pin (hard hat) on it.
+    Place in: res/drawable/
+    Usage:  android:src="@drawable/ic_map_work_location"
+            app:tint="@color/your_color"   ← tint recolors the whole icon
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- ── MAP ─────────────────────────────────────────────
+         Standard Material "map" path, shifted slightly down
+         so the pin fits in the upper-right without clipping.
+    ─────────────────────────────────────────────────────── -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="
+        M20.5,3.5 L20.34,3.53 L15,5.6 L9,3.5
+        L3.36,5.4 C3.15,5.47 3,5.65 3,5.88
+        V21 C3,21.28 3.22,21.5 3.5,21.5
+        L3.66,21.47 L9,19.4 L15,21.5
+        L20.64,19.6 C20.85,19.53 21,19.35 21,19.12
+        V4 C21,3.72 20.78,3.5 20.5,3.5 Z
+        M15,19.5 L9,17.39 V5.5 L15,7.61 V19.5 Z" />
+
+    <!-- ── WORK / CONSTRUCTION PIN ────────────────────────
+         Drawn in the upper-right quadrant of the map.
+         Pin body  → teardrop   (circle + downward spike)
+         Hard-hat  → arc + brim inside the circle
+    ─────────────────────────────────────────────────────── -->
+
+    <!-- Pin teardrop body (circle radius ~3.2, tip at bottom) -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="
+        M17.5,2
+        C15.57,2 14,3.57 14,5.5
+        C14,8.12 17.5,12 17.5,12
+        C17.5,12 21,8.12 21,5.5
+        C21,3.57 19.43,2 17.5,2 Z" />
+
+    <!-- Hard-hat dome (white cutout effect via separate white path) -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="
+        M17.5,3.5
+        C16.56,3.5 15.78,4.1 15.53,4.92
+        L19.47,4.92
+        C19.22,4.1 18.44,3.5 17.5,3.5 Z" />
+
+    <!-- Hard-hat brim (white horizontal bar) -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M15.2,5.3 L19.8,5.3 L19.8,5.9 L15.2,5.9 Z" />
+
+    <!-- Hard-hat top knob -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M17.1,3.2 L17.9,3.2 L17.9,3.7 L17.1,3.7 Z" />
+
+</vector>

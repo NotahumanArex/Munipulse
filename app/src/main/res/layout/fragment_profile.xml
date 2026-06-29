@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_profile.xml
+    ────────────────────
+    Screen 3 — Citizen Profile (Instagram-style)
+    ┌──────────────────────────────────┐
+    │  Toolbar  "My Profile"   ⋯       │
+    │  [NestedScrollView]              │
+    │    Cover image                   │
+    │    Avatar circle (overlapping)   │
+    │    Name + badge + location       │
+    │    Stats: Reports|Resolved|Pts   │
+    │    Edit Profile / Share buttons  │
+    │    Civic Impact progress bar     │
+    │    Achievement badges row        │
+    │    "My Reports" grid (2 col)     │
+    └──────────────────────────────────┘
+    ProfileFragment.kt loads user data from ViewModel.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_page">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mp_blue"
+        android:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_profile"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/mp_blue"
+            app:title="@string/profile_title"
+            app:titleTextColor="@android:color/white">
+
+            <ImageButton
+                android:id="@+id/btn_profile_menu"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_more_vert"
+                app:tint="@android:color/white"
+                android:contentDescription="More options" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── Cover image ── -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+                <ImageView
+                    android:id="@+id/iv_cover_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Profile cover"
+                    android:background="@color/mp_blue_dark"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+                <!-- Semi-transparent overlay for readability -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black_overlay" />
+
+            </FrameLayout>
+
+            <!-- ── Profile info card (overlaps cover) ── -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-36dp">
+
+                <!-- Avatar circle: sits on border of cover + content -->
+                <TextView
+                    android:id="@+id/tv_profile_avatar"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/bg_profile_avatar"
+                    android:gravity="center"
+                    android:textColor="@color/mp_blue"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:elevation="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="RK" />
+
+                <!-- Name -->
+                <TextView
+                    android:id="@+id/tv_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/tv_profile_avatar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Rahul Kulkarni" />
+
+                <!-- Location + since date -->
+                <TextView
+                    android:id="@+id/tv_profile_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_profile_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="📍 Kothrud, Pune · Member since Jan 2024" />
+
+                <!-- Verified badge chip -->
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_verified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="8dp"
+                    android:text="✅ Verified Citizen"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/mp_blue_light"
+                    app:chipStrokeWidth="0dp"
+                    app:rippleColor="@android:color/transparent"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_profile_sub"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ── Stats row ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginTop="14dp"
+                app:cardCornerRadius="14dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+
+                    <!-- Reports stat -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView android:id="@+id/tv_stat_reports" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" tools:text="28" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Reports" android:textColor="@color/text_secondary" android:textSize="10sp" android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="@color/border" />
+
+                    <!-- Resolved stat -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView android:id="@+id/tv_stat_resolved" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/mp_green" android:textSize="18sp" android:textStyle="bold" tools:text="19" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Resolved" android:textColor="@color/text_secondary" android:textSize="10sp" android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="@color/border" />
+
+                    <!-- Upvotes stat -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView android:id="@+id/tv_stat_upvotes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/mp_orange" android:textSize="18sp" android:textStyle="bold" tools:text="3.4k" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Upvotes" android:textColor="@color/text_secondary" android:textSize="10sp" android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="@color/border" />
+
+                    <!-- Success rate stat -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView android:id="@+id/tv_stat_success" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/mp_blue" android:textSize="18sp" android:textStyle="bold" tools:text="68%" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Success" android:textColor="@color/text_secondary" android:textSize="10sp" android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Action buttons ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginTop="12dp"
+>
+
+                <Button
+                    android:id="@+id/btn_edit_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:text="✏️ Edit Profile"
+                    style="@style/MuniPulse.Button.Primary" />
+
+                <Button
+                    android:id="@+id/btn_share_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:text="📤 Share"
+                    style="@style/MuniPulse.Button.Outline" />
+
+            </LinearLayout>
+
+            <!-- ── Civic Impact Score card ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginTop="14dp"
+                app:cardCornerRadius="14dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <!-- Impact score header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Civic Impact Score"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_impact_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/mp_blue"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            tools:text="680 pts" />
+
+                    </LinearLayout>
+
+                    <!-- Progress bar -->
+                    <ProgressBar
+                        android:id="@+id/progress_impact"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_marginTop="10dp"
+                        android:progress="68"
+                        android:progressTint="@color/mp_blue"
+                        android:progressBackgroundTint="@color/bg_page"
+                        android:max="100" />
+
+                    <!-- Level label -->
+                    <TextView
+                        android:id="@+id/tv_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp"
+                        tools:text="Level: Community Champion 🏅" />
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/border" />
+
+                    <!-- Achievement chips -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group_badges"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:chipSpacingHorizontal="6dp"
+                        app:chipSpacingVertical="4dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="🚧 Road Warrior"
+                            android:textSize="10sp"
+                            app:chipBackgroundColor="@color/mp_yellow_light"
+                            app:chipStrokeWidth="0dp"
+                            android:textColor="@color/mp_yellow"
+                            android:clickable="false"
+                            android:focusable="false"
+                            app:rippleColor="@android:color/transparent" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="💧 Water Watch"
+                            android:textSize="10sp"
+                            app:chipBackgroundColor="@color/mp_green_light"
+                            app:chipStrokeWidth="0dp"
+                            android:textColor="@color/mp_green"
+                            android:clickable="false"
+                            android:focusable="false"
+                            app:rippleColor="@android:color/transparent" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:text="🌟 Top Reporter"
+                            android:textSize="10sp"
+                            app:chipBackgroundColor="@color/mp_blue_light"
+                            app:chipStrokeWidth="0dp"
+                            android:textColor="@color/mp_blue"
+                            android:clickable="false"
+                            android:focusable="false"
+                            app:rippleColor="@android:color/transparent" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── My Reports header ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="My Reports"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btn_see_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See all"
+                    android:textColor="@color/mp_blue"
+                    android:textSize="12sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground" />
+
+            </LinearLayout>
+
+            <!-- ── 2-column post thumbnail grid ── -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_my_posts_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="20dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_post_thumbnail" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

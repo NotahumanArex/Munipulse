@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand -->
+    <color name="mp_blue">#1560BD</color>
+    <color name="mp_blue_dark">#0D47A1</color>
+    <color name="mp_blue_light">#E8F1FB</color>
+
+    <!-- Accent -->
+    <color name="mp_orange">#E85D26</color>
+    <color name="mp_orange_light">#FDF0EA</color>
+
+    <!-- Status Colors -->
+    <color name="mp_green">#2E7D32</color>
+    <color name="mp_green_light">#E8F5E9</color>
+    <color name="mp_red">#C62828</color>
+    <color name="mp_red_light">#FFEBEE</color>
+    <color name="mp_yellow">#F57F17</color>
+    <color name="mp_yellow_light">#FFFDE7</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="bottom_nav_color_selector">#1565C0</color>
+
+
+    <!-- Neutral -->
+    <color name="bg_page">#F4F6FB</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="border">#E2E8F0</color>
+    <color name="text_primary">#1A202C</color>
+    <color name="text_secondary">#718096</color>
+    <color name="text_hint">#A0AEC0</color>
+
+    <!-- Bottom Nav -->
+    <color name="nav_active">#1560BD</color>
+    <color name="nav_inactive">#718096</color>
+
+    <!-- Status Bar -->
+    <color name="status_bar">#F4F6FB</color>
+    <color name="overlay_white_20">#F4F6FB</color>
+    <color name="purple_500">#F5DD61F0</color>
+    <color name="gray">#F5FCF3FF</color>
+
+
+</resources>

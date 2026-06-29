@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400616376540",
+    "project_id": "munipulse1",
+    "storage_bucket": "munipulse1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400616376540:android:bc2f5ce40d008ba8580c19",
+        "android_client_info": {
+          "package_name": "my.n.munipulse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9IELqkX3xU3BUa6LXVBAYyJrKzDJe0EI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
